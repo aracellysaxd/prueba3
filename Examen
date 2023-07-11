@@ -1,0 +1,143 @@
+import numpy as np
+acum = 0
+# Definición de la matriz del desarrollo residencial
+matriz = np.array([
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0],
+    [0, 0, 0, 0, 0]
+])
+
+# Definición de la lista de departamentos con sus detalles
+lotes = [
+    {"numero": 1, "tamaño": "A", "precio": "$3,800UF"},
+    {"numero": 1, "tamaño": "B", "precio": "$3,000UF"},
+    {"numero": 1, "tamaño": "C", "precio": "$2,800UF"},
+    {"numero": 1, "tamaño": "D", "precio": "$3,500UF"},
+    {"numero": 2, "tamaño": "A", "precio": "$3,800UF"},
+    {"numero": 2, "tamaño": "B", "precio": "$3,000UF"},
+    {"numero": 2, "tamaño": "C", "precio": "$2,800UF"},
+    {"numero": 2, "tamaño": "D", "precio": "$3,500UF"},
+    {"numero": 3, "tamaño": "A", "precio": "$3,800UF"},
+    {"numero": 3, "tamaño": "B", "precio": "$3,000UF"},
+    {"numero": 3, "tamaño": "C", "precio": "$3,800UF"},
+    {"numero": 3, "tamaño": "D", "precio": "$2,500UF"},
+    {"numero": 4, "tamaño": "A", "precio": "$3,800UF"},
+    {"numero": 4, "tamaño": "B", "precio": "$3,000UF"},
+    {"numero": 4, "tamaño": "C", "precio": "$2,800UF"},
+    {"numero": 4, "tamaño": "D", "precio": "$3,500UF"},
+    {"numero": 5, "tamaño": "A", "precio": "$3,800UF"},
+    {"numero": 5, "tamaño": "B", "precio": "$3,000UF"},
+    {"numero": 5, "tamaño": "C", "precio": "$2,800UF"},
+    {"numero": 5, "tamaño": "D", "precio": "$3,500UF"},
+    {"numero": 6, "tamaño": "A", "precio": "$3,800UF"},
+    {"numero": 6, "tamaño": "B", "precio": "$3,000UF"},
+    {"numero": 6, "tamaño": "C", "precio": "$2,800UF"},
+    {"numero": 6, "tamaño": "D", "precio": "$3,500UF"},
+    {"numero": 7, "tamaño": "A", "precio": "$3,800UF"},
+    {"numero": 7, "tamaño": "B", "precio": "$3,000UF"},
+    {"numero": 7, "tamaño": "C", "precio": "$2,800UF"},
+    {"numero": 7, "tamaño": "D", "precio": "$3,500UF"},
+    {"numero": 8, "tamaño": "A", "precio": "$3,800UF"},
+    {"numero": 8, "tamaño": "B", "precio": "$3,000UF"},
+    {"numero": 8, "tamaño": "C", "precio": "$2,800UF"},
+    {"numero": 8, "tamaño": "D", "precio": "$3,500UF"},
+    {"numero": 9, "tamaño": "A", "precio": "$3,800UF"},
+    {"numero": 9, "tamaño": "B", "precio": "$3,000UF"},
+    {"numero": 9, "tamaño": "C", "precio": "$2,800UF"},
+    {"numero": 9, "tamaño": "D", "precio": "$3,500UF"},
+    {"numero": 10, "tamaño": "A", "precio": "$3,800UF"},
+    {"numero": 10, "tamaño": "B", "precio": "$3,000UF"},
+    {"numero": 10, "tamaño": "C", "precio": "$2,800UF"},
+    {"numero": 10, "tamaño": "D", "precio": "$3,500UF"},
+
+]
+
+# Lista de clientes que han comprado un departamento
+clientes = []
+ganancia = 0
+total_recaudado = 0
+
+def mostrar_disponibilidad():
+    print("DEPARTAMENTOS DISPONIBLES:")
+    for fila in matriz:
+        for lote in fila:
+            if lote == 0:
+                print("[ ]", end=" ")
+            else:
+                print("[✔]", end=" ")
+        print()
+
+def seleccionar_lote():
+    fila = int(input("INGRESE EL PISO DEL DEPARTAMENTO "))
+    columna = int(input("INGRESE EL TIPO DEL DEPARTAMENTO (1=A, 2=B, 3=C, 4=D): "))
+
+    if matriz[fila-1][columna-1] == 0:
+        rut = input("INGRESE SU RUT: ")
+        
+
+        cliente = {
+            "rut": rut,
+            "lote": (fila, columna)
+        }
+
+        clientes.append(cliente)
+        matriz[fila-1][columna-1] = 1
+
+        print("Has Seleccionado el departamento  Con Exito.")
+    else:
+        print("El departamento Seleccionado No está disponible. Elija Otro.")
+
+
+
+
+def ver_clientes():
+    print("Lista de clientes que han comprado un departamento:")
+    for cliente in clientes:
+        print(f"RUT: {cliente['rut']}")
+        lote = cliente["lote"]
+        print(f"Departamento seleccionado: ({lote[0]}, {lote[1]})")
+        print()
+
+def menu():
+    print("Bienvenido a inmobiliaria CASA FELIZ")
+    while True:
+        print("- MENU VENTA DE DEPARTAMENTOS -")
+        print("1. Ver disponibilidad de departamentos")
+        print("2. Comprar un departamento")
+        print("3. Ver Clientes")
+        print("4. Ver Ganancias totales")
+        print("5. Salir")
+
+        opcion = input("Seleccione una opción: ")
+
+        if opcion == "1":
+            mostrar_disponibilidad()
+        elif opcion == "2":
+            seleccionar_lote()
+        elif opcion == "3":
+            ver_clientes()
+        elif opcion == "4":
+            total_recaudado()
+        elif opcion == "5": 
+            print("Gracias Por su Compra")
+            print("Fue atendido por Aracelly Salgado")
+            fecha_actual = datetime.date.today().strftime("%d/%m/%Y")
+            print("Fecha actual:", fecha_actual)
+            break
+
+        else:
+            print("Opción inválida. Por favor, seleccione una opción válida.")
+
+
+
+# Iniciar el programa
+menu()
+
+
